@@ -19,6 +19,7 @@ const ignoredMocks = [
   'error-internal-server-error.json',
   'error-forgot-password.json',
   'authenticator-verification-select-authenticator.json',
+  'authenticator-verification-okta-verify-signed-nonce-loopback.json',
   'error-with-failure-redirect.json',
   'identify-recovery-with-recaptcha-v2.json'
 ];
