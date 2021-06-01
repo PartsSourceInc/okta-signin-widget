@@ -4,7 +4,8 @@ import { ACTIONS, FORMS as RemediationForms } from '../../ion/RemediationConstan
 const { ENROLLED_PASSWORD_RECOVERY_LINK, ORG_PASSWORD_RECOVERY_LINK } = ACTIONS;
 
 const getSwitchAuthenticatorLink = (appState) => {
-  if (appState.hasRemediationObject(RemediationForms.SELECT_AUTHENTICATOR_AUTHENTICATE)) {
+  if (appState.hasRemediationObject(RemediationForms.SELECT_AUTHENTICATOR_AUTHENTICATE) &&
+    appState.hasMoreThanOneAuthenticatorOption(RemediationForms.SELECT_AUTHENTICATOR_AUTHENTICATE)) {
     return [
       {
         'type': 'link',

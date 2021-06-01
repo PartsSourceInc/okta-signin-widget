@@ -1,5 +1,8 @@
 import AppState from 'v2/models/AppState';
 import {FORMS, FORMS_FOR_VERIFICATION, FORMS_WITHOUT_SIGNOUT} from 'v2/ion/RemediationConstants';
+import MockUtil from '../../../helpers/v2/MockUtil';
+import XHRAuthenticatorChallengOktaVerify
+  from '../../../../../playground/mocks/data/idp/idx/authenticator-verification-okta-verify-push.json';
 
 describe('v2/models/AppState', function() {
   beforeEach(() => {
@@ -179,5 +182,40 @@ describe('v2/models/AppState', function() {
       expect(this.appState.shouldReRenderView(transformedResponse)).toBe(false);
     });
 
+  });
+
+  describe('hasRemediationObject', () => {
+    it('returns true if there is more than 1 authenticator', (done) => {
+      const oktaVerifyChallengResponse = JSON.parse(JSON.stringify(XHRAuthenticatorChallengOktaVerify));
+      MockUtil.mockIntrospect(done, oktaVerifyChallengResponse, idxResp => {
+        this.initAppState({ idx: idxResp }, 'challenge-authenticator');
+        expect(this.appState.hasMoreThanOneAuthenticatorOption('select-authenticator-authenticate')).toBe(true);
+        done();
+      });
+    });
+
+    it('returns true if there is only Okta Verify but with more than 1 method available', (done) => {
+      const oktaVerifyChallengResponse = JSON.parse(JSON.stringify(XHRAuthenticatorChallengOktaVerify));
+      oktaVerifyChallengResponse.remediation.value[1].value[0].options = [
+        oktaVerifyChallengResponse.remediation.value[1].value[0].options[0]
+      ];
+      MockUtil.mockIntrospect(done, oktaVerifyChallengResponse, idxResp => {
+        this.initAppState({ idx: idxResp }, 'challenge-authenticator');
+        expect(this.appState.hasMoreThanOneAuthenticatorOption('select-authenticator-authenticate')).toBe(true);
+        done();
+      });
+    });
+
+    it('returns false if there is only 1 authenticator', (done) => {
+      const oktaVerifyChallengResponse = JSON.parse(JSON.stringify(XHRAuthenticatorChallengOktaVerify));
+      oktaVerifyChallengResponse.remediation.value[1].value[0].options = [
+        oktaVerifyChallengResponse.remediation.value[1].value[0].options[1]
+      ];
+      MockUtil.mockIntrospect(done, oktaVerifyChallengResponse, idxResp => {
+        this.initAppState({ idx: idxResp }, 'challenge-authenticator');
+        expect(this.appState.hasMoreThanOneAuthenticatorOption('select-authenticator-authenticate')).toBe(false);
+        done();
+      });
+    });
   });
 });
