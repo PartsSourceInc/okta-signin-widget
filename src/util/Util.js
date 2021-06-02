@@ -31,7 +31,6 @@ const buildInputForParameter = function(name, value) {
 const buildSubmitInput = function() {
   const input = document.createElement('input');
   input.type = 'submit';
-  input.value = 'Submit';
   return input;
 };
 
