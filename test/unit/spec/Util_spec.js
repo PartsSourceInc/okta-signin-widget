@@ -209,7 +209,7 @@ describe('util/Util', () => {
       expect($('#okta-sign-in form :submit')[0].click).toHaveBeenCalledTimes(1);
       expect($('#okta-sign-in').html()).toBe(
         '<form method="get" style="display: none;" action="http://example.com/idp/123">' + 
-          '<input type="submit" value="Submit">' + 
+          '<input type="submit">' + 
           '</form>'
       );
     });
@@ -222,7 +222,7 @@ describe('util/Util', () => {
         '<form method="get" style="display: none;" action="http://example.com/idp/123">' +
           '<input name="foo" type="hidden" value="aaa">' +
           '<input name="bar" type="hidden" value="bbb">' +
-          '<input type="submit" value="Submit">' + 
+          '<input type="submit">' + 
           '</form>'
       );
     });
@@ -234,7 +234,7 @@ describe('util/Util', () => {
       expect($('#okta-sign-in').html()).toBe(
         '<form method="get" style="display: none;" action="http://example.com/idp/123#hello=okta">' +
           '<input name="redirectURI" type="hidden" value="https://foo.com">' +
-          '<input type="submit" value="Submit">' + 
+          '<input type="submit">' + 
           '</form>'
       );
     });
@@ -248,7 +248,7 @@ describe('util/Util', () => {
       expect($('#okta-sign-in').html()).toBe(
         '<form method="get" style="display: none;" action="http://example.com/idp/123">' +
           '<input name="foo" type="hidden" value="a&quot;/><img error=&quot;alert(11)&quot; src=&quot;xx&quot;/>">' +
-          '<input type="submit" value="Submit">' + 
+          '<input type="submit">' + 
           '</form>'
       );
     });
@@ -260,7 +260,7 @@ describe('util/Util', () => {
       expect($('#okta-sign-in').html()).toBe(
         '<form method="get" style="display: none;" action="http://example.com/idp/123">' +
           '<input name="foo" type="hidden" value="&quot;/><img error">' +
-          '<input type="submit" value="Submit">' + 
+          '<input type="submit">' + 
           '</form>'
       );
     });
